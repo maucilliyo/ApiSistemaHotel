@@ -28,7 +28,8 @@ namespace Datos.Repositorios
                                                 habitacion.NumeroHabitacion,
                                                 habitacion.Disponible,
                                                 habitacion.NumeroPiso,
-                                                habitacion.IdTipoHabitacion
+                                                habitacion.IdTipoHabitacion,
+                                                habitacion.TipoHabitacion
                                             },
                                             commandType: CommandType.StoredProcedure) > 0;
             }
@@ -48,10 +49,22 @@ namespace Datos.Repositorios
         {
             using (var conn = _conexionSql.GetConnection())
             {
-                var usuarios = await conn.QueryAsync<Habitacion>("SP_HabitacionLista",
+                var response = await conn.QueryAsync<Habitacion>("SP_HabitacionLista",
                                                               commandType: CommandType.StoredProcedure);
 
-                return usuarios.ToList();
+                return response.ToList();
+            }
+        }
+
+        public async Task<List<Habitacion>> ListaDisponibles(DateTime fechaEntrada, DateTime fechaSalida)
+        {
+            using (var conn = _conexionSql.GetConnection())
+            {
+                var response = await conn.QueryAsync<Habitacion>("SP_HabitacionListaLibres",
+                                                                new { fechaEntrada,fechaSalida },
+                                                              commandType: CommandType.StoredProcedure);
+
+                return response.ToList();
             }
         }
 
@@ -65,7 +78,8 @@ namespace Datos.Repositorios
                                                 habitacion.NumeroHabitacion,
                                                 habitacion.Disponible,
                                                 habitacion.NumeroPiso,
-                                                habitacion.IdTipoHabitacion
+                                                habitacion.IdTipoHabitacion,
+                                                habitacion.TipoHabitacion
                                             },
                                             commandType: CommandType.StoredProcedure) > 0;
             }
@@ -76,7 +90,7 @@ namespace Datos.Repositorios
         {
             using (var conn = _conexionSql.GetConnection())
             {
-                var response = await conn.QueryAsync<Habitacion>("HabitacionGetByID", new { IdHabitacion },
+                var response = await conn.QueryAsync<Habitacion>("SP_HabitacionGetByID", new { IdHabitacion },
                                                      commandType: CommandType.StoredProcedure);
 
                 return response.FirstOrDefault();

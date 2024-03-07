@@ -47,7 +47,7 @@ namespace Datos.Repositorios
         {
             using (var conn = _conexionSql.GetConnection())
             {
-                var response = await conn.QueryAsync<Factura>("SP_FacturasGetByID",
+                var response = await conn.QueryAsync<Factura>("SP_FacturaLista",
                                                      commandType: CommandType.StoredProcedure);
 
                 return response.ToList();

@@ -9,6 +9,6 @@ namespace Datos.Interfaces
 {
     public interface IHabitacionRepository:IBaseRepository<Habitacion>
     {
-
+        Task<List<Habitacion>> ListaDisponibles(DateTime fechaEntrada,DateTime fechaSalida);
     }
 }

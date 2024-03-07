@@ -1,6 +1,7 @@
 ﻿using Entidades;
 using Microsoft.AspNetCore.Mvc;
 using Negocio.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApiHotel.Controllers
 {
@@ -19,6 +20,13 @@ namespace WebApiHotel.Controllers
         {
             return await _negocioHabitacion.Lista();
         }
+
+        [HttpGet("ListaLibres")]
+        public async Task<ActionResult<IEnumerable<Habitacion>>> GetHabitacionesLibres([Required] DateTime fechaEntrada, [Required] DateTime fechaSalida)
+        {
+            return await _negocioHabitacion.ListaDisponibles( fechaEntrada,fechaSalida);
+        }
+
 
         [HttpGet("ObtenerPorId{idHabitacion}")]
         public async Task<ActionResult<Habitacion>> GetHabitaciones(int idHabitacion)

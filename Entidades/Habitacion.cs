@@ -13,5 +13,6 @@ namespace Entidades
         public bool Disponible { get; set; }
         public int NumeroPiso { get; set; }
         public int IdTipoHabitacion { get; set; }
+        public string TipoHabitacion { get; set; }
     }
 }

@@ -30,7 +30,6 @@ namespace Datos.Repositorios
                                                 reserva.IdHabitacion,
                                                 reserva.FechaEntrada,
                                                 reserva.FechaSalida,
-                                                reserva.IdUsuario,
                                                 reserva.NombreCliente
                                             },
                                             commandType: CommandType.StoredProcedure) > 0;
@@ -78,7 +77,6 @@ namespace Datos.Repositorios
                                                 reserva.IdHabitacion,
                                                 reserva.FechaEntrada,
                                                 reserva.FechaSalida,
-                                                reserva.IdUsuario,
                                                 reserva.NombreCliente
                                             },
                                             commandType: CommandType.StoredProcedure) > 0;

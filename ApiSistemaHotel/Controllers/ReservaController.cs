@@ -28,6 +28,7 @@ namespace WebApiHotel.Controllers
             }
             // Si todos los campos requeridos están presentes, intenta crear el usuario
             reserva.CodigoReserva = Commons.GenerarCodigoAleatorio();
+
             var response = await _negocioReserva.Nuevo(reserva);
 
             if (response != null)
@@ -68,11 +69,19 @@ namespace WebApiHotel.Controllers
         {
             return await _negocioReserva.ObtenerPorId(id);  
         }
-        [HttpGet("OntenerPorCodigo{CodigoReserva}")]
+
+        [HttpGet("ObtenerPorCodigo{CodigoReserva}")]
         public async Task<ActionResult<Reserva>> GetById(string CodigoReserva)
         {
-            return await _negocioReserva.GetReservaByCodigo(CodigoReserva);
+            var response =  await _negocioReserva.GetReservaByCodigo(CodigoReserva);
+
+            if (response== null)
+            { 
+                return NotFound("No se encontro la reserva");
+            }
+            return Ok(response);
         }
+
         [HttpGet("Lista")]
         public async Task<ActionResult<IEnumerable<Reserva>>> GetReservas()
         {

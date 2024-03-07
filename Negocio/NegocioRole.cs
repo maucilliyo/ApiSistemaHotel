@@ -1,24 +1,21 @@
-﻿using Dapper;
-using Datos.Interfaces;
+﻿using Datos.Interfaces;
 using Entidades;
+using Negocio.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Datos.Repositorios
+namespace Negocio
 {
-    public class RoleRepository:IRoleRepository
+    public class NegocioRole : INegocioRole
     {
-        private readonly ConexionSql _conexionSql;
-
-        public RoleRepository(ConexionSql conexionSql )
+        private readonly IRoleRepository _roleRepository;
+        public NegocioRole(IRoleRepository roleRepository)
         {
-            _conexionSql = conexionSql; 
+            _roleRepository = roleRepository;   
         }
-
         public Task<bool> Actualizar(Role entidad)
         {
             throw new NotImplementedException();
@@ -31,12 +28,7 @@ namespace Datos.Repositorios
 
         public async Task<List<Role>> Lista()
         {
-            using (var conn = _conexionSql.GetConnection())
-            {
-                var respose = await conn.QueryAsync<Role>("SP_RoleLista", 
-                                                           commandType:CommandType.StoredProcedure);
-                return respose.ToList();
-            }
+            return await _roleRepository.Lista();
         }
 
         public Task<bool> Nuevo(Role entidad)

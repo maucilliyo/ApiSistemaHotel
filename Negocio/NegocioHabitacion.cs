@@ -31,6 +31,11 @@ namespace Negocio
             return await _habitacionRepositoy.Lista();
         }
 
+        public async Task<List<Habitacion>> ListaDisponibles(DateTime fechaEntrada, DateTime fechaSalida)
+        {
+            return await _habitacionRepositoy.ListaDisponibles( fechaEntrada,fechaSalida);
+        }
+
         public async Task<bool> Nuevo(Habitacion entidad)
         {
             return await _habitacionRepositoy.Nuevo(entidad);
